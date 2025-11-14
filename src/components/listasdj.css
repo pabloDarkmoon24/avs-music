@@ -1,0 +1,340 @@
+/* src/components/ListasDJ.css */
+
+.listas-dj {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.listas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.listas-header h2 {
+  color: #191414;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.btn-crear-lista {
+  padding: 12px 25px;
+  background: linear-gradient(135deg, #1db954 0%, #1ed760 100%);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 1rem;
+}
+
+.btn-crear-lista:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(29, 185, 84, 0.4);
+}
+
+/* Empty state */
+.empty-listas {
+  text-align: center;
+  padding: 100px 40px;
+  background: #f9f9f9;
+  border-radius: 20px;
+  border: 3px dashed #ddd;
+}
+
+.empty-icon {
+  font-size: 5rem;
+  margin-bottom: 20px;
+  opacity: 0.4;
+}
+
+.empty-listas h3 {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.empty-listas p {
+  color: #999;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+.btn-crear-primera {
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #1db954 0%, #1ed760 100%);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-crear-primera:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(29, 185, 84, 0.4);
+}
+
+/* Grid de listas */
+.listas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.lista-card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.lista-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+}
+
+.lista-card-header {
+  padding: 20px;
+  background: linear-gradient(135deg, #1db954 0%, #1ed760 100%);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lista-info-header h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.3rem;
+}
+
+.lista-meta {
+  margin: 0;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.lista-actions-header {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-cargar,
+.btn-expandir,
+.btn-eliminar-lista {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-cargar:hover:not(:disabled),
+.btn-expandir:hover,
+.btn-eliminar-lista:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.btn-cargar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Canciones de la lista */
+.lista-canciones {
+  padding: 15px;
+  background: #f9f9f9;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.empty-canciones {
+  text-align: center;
+  padding: 30px;
+  color: #999;
+  font-style: italic;
+}
+
+.cancion-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  transition: all 0.2s;
+}
+
+.cancion-item:hover {
+  background: #f0f0f0;
+}
+
+.cancion-numero {
+  width: 25px;
+  text-align: center;
+  color: #666;
+  font-weight: bold;
+}
+
+.cancion-cover-small {
+  width: 45px;
+  height: 45px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.cancion-info-small {
+  flex: 1;
+  min-width: 0;
+}
+
+.cancion-nombre {
+  margin: 0 0 3px 0;
+  font-weight: 600;
+  color: #191414;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cancion-artista {
+  margin: 0;
+  color: #666;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cancion-duracion {
+  color: #999;
+  font-size: 0.85rem;
+}
+
+.btn-eliminar-cancion {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: #ff6b6b;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.btn-eliminar-cancion:hover {
+  background: #ff5252;
+  transform: scale(1.1);
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h3 {
+  margin: 0 0 20px 0;
+  color: #191414;
+  text-align: center;
+}
+
+.input-nombre-lista {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.input-nombre-lista:focus {
+  border-color: #1db954;
+  box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.1);
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-confirmar,
+.btn-cancelar {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-confirmar {
+  background: #1db954;
+  color: white;
+}
+
+.btn-confirmar:hover {
+  background: #1ed760;
+}
+
+.btn-cancelar {
+  background: #f0f0f0;
+  color: #666;
+}
+
+.btn-cancelar:hover {
+  background: #e0e0e0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .listas-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .listas-header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+  }
+
+  .btn-crear-lista {
+    width: 100%;
+  }
+}

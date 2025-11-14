@@ -1,0 +1,350 @@
+/* src/components/ReproduccionActual.css */
+
+.reproduccion-actual {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.reproduccion-actual h2 {
+  text-align: center;
+  color: #191414;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+/* Sección de canción actual */
+.now-playing-section {
+  margin-bottom: 50px;
+}
+
+.now-playing-card {
+  background: linear-gradient(135deg, #1db954 0%, #1ed760 100%);
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  box-shadow: 0 10px 40px rgba(29, 185, 84, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.now-playing-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #1db954;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  animation: pulse-badge 2s infinite;
+}
+
+@keyframes pulse-badge {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.now-playing-cover {
+  width: 200px;
+  height: 200px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+  animation: rotate-slow 20s linear infinite;
+}
+
+@keyframes rotate-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.now-playing-info {
+  flex: 1;
+  color: white;
+}
+
+.now-playing-info h3 {
+  font-size: 2rem;
+  margin: 0 0 10px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.now-playing-info .artist {
+  font-size: 1.3rem;
+  margin: 0 0 5px 0;
+  opacity: 0.95;
+}
+
+.now-playing-info .album {
+  font-size: 1rem;
+  margin: 0 0 10px 0;
+  opacity: 0.8;
+  font-style: italic;
+}
+
+.now-playing-info .duration {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.now-playing-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-next {
+  padding: 15px 30px;
+  background: white;
+  color: #1db954;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-next:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn-next:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* No hay música reproduciéndose */
+.no-playing {
+  text-align: center;
+  padding: 80px 40px;
+  background: #f9f9f9;
+  border-radius: 20px;
+  border: 3px dashed #ddd;
+}
+
+.no-playing-icon {
+  font-size: 5rem;
+  margin-bottom: 20px;
+  opacity: 0.3;
+}
+
+.no-playing h3 {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.no-playing p {
+  color: #999;
+  font-size: 1.1rem;
+}
+
+/* Próximas canciones */
+.proximas-section h3 {
+  color: #191414;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.drag-hint {
+  font-size: 0.85rem;
+  color: #999;
+  font-weight: normal;
+  font-style: italic;
+}
+
+.empty-queue {
+  text-align: center;
+  padding: 60px 40px;
+  background: #f9f9f9;
+  border-radius: 15px;
+  color: #999;
+}
+
+.empty-queue small {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.proximas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.proxima-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.proxima-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.proxima-card.draggable {
+  cursor: move;
+}
+
+.proxima-number {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #1db954 0%, #1ed760 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.proxima-cover {
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.proxima-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.proxima-info h4 {
+  margin: 0 0 5px 0;
+  font-size: 1.1rem;
+  color: #191414;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.proxima-info .artist {
+  margin: 0 0 3px 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.proxima-info .album {
+  margin: 0 0 5px 0;
+  color: #999;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.proxima-info .duration {
+  color: #999;
+  font-size: 0.85rem;
+}
+
+.proxima-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.btn-play-now,
+.btn-delete {
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-play-now {
+  background: #1db954;
+  color: white;
+}
+
+.btn-play-now:hover {
+  background: #1ed760;
+  transform: scale(1.1);
+}
+
+.btn-delete {
+  background: #ff6b6b;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #ff5252;
+  transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .now-playing-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 20px;
+  }
+
+  .now-playing-cover {
+    width: 150px;
+    height: 150px;
+  }
+
+  .now-playing-info h3 {
+    font-size: 1.5rem;
+  }
+
+  .now-playing-controls {
+    width: 100%;
+  }
+
+  .btn-next {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .proxima-card {
+    flex-wrap: wrap;
+  }
+
+  .proxima-cover {
+    width: 60px;
+    height: 60px;
+  }
+
+  .proxima-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .drag-hint {
+    display: none;
+  }
+}
