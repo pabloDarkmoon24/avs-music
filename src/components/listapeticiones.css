@@ -247,20 +247,6 @@
   justify-content: center;
 }
 
-.btn-aprobar:disabled,
-.btn-rechazar:disabled {
-  opacity: 0;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-/* Ocultar botones cuando la petición está siendo procesada */
-.peticion-card.aprobada .peticion-actions,
-.peticion-card.rechazada .peticion-actions {
-  opacity: 0;
-  pointer-events: none;
-}
-
 /* Agregar texto de estado en la tarjeta */
 .peticion-card.aprobada::after {
   content: "✓ APROBADA";

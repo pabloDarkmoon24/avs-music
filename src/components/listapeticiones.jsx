@@ -195,21 +195,19 @@ function ListaPeticiones({ isDJ = false }) {
                     </div>
                   </div>
 
-                  {isDJ && (
+                  {isDJ && peticion.estado !== 'aprobada' && peticion.estado !== 'rechazada' && (
                     <div className="peticion-actions">
-                      <button 
+                      <button
                         onClick={() => handleAprobar(peticion, 'basica')}
                         className="btn-aprobar"
                         title="Aprobar y añadir a lista de reproducción"
-                        disabled={peticion.estado === 'aprobada' || peticion.estado === 'rechazada'}
                       >
                         ✓
                       </button>
-                      <button 
+                      <button
                         onClick={() => handleRechazar(peticion.id, 'basica')}
                         className="btn-rechazar"
                         title="Rechazar petición"
-                        disabled={peticion.estado === 'aprobada' || peticion.estado === 'rechazada'}
                       >
                         ✕
                       </button>
@@ -250,21 +248,19 @@ function ListaPeticiones({ isDJ = false }) {
                     {isDJ && <span className="codigo-badge">Código: {peticion.codigo}</span>}
                   </div>
 
-                  {isDJ && (
+                  {isDJ && peticion.estado !== 'aprobada' && peticion.estado !== 'rechazada' && (
                     <div className="peticion-actions">
-                      <button 
+                      <button
                         onClick={() => handleAprobar(peticion, 'premium')}
                         className="btn-aprobar"
                         title="Aprobar y añadir a lista de reproducción"
-                        disabled={peticion.estado === 'aprobada' || peticion.estado === 'rechazada'}
                       >
                         ✓
                       </button>
-                      <button 
+                      <button
                         onClick={() => handleRechazar(peticion.id, 'premium')}
                         className="btn-rechazar"
                         title="Rechazar petición"
-                        disabled={peticion.estado === 'aprobada' || peticion.estado === 'rechazada'}
                       >
                         ✕
                       </button>
