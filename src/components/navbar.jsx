@@ -12,7 +12,7 @@ function Navbar({ seccionActiva, onCambiarSeccion, isDJ, onLogout }) {
     <nav className="navbar">
       <div className="navbar-container">
         <div className="navbar-brand">
-          <h1>🎧 AVSMUSIC</h1>
+          <h1>🎧 AVCMUSIC</h1>
           <span className="navbar-subtitle">DJ App</span>
         </div>
 

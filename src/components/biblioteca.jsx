@@ -13,6 +13,8 @@ function Biblioteca({ onAddToList }) {
   const [selectedTrack, setSelectedTrack] = useState(null);
   const [loadingPreview, setLoadingPreview] = useState(null);
   const [notification, setNotification] = useState(null);
+  const [showCodePopup, setShowCodePopup] = useState(false);
+  const [premiumCode, setPremiumCode] = useState('');
   const audioRef = useRef(null);
 
   // Mostrar notificación
@@ -124,19 +126,26 @@ function Biblioteca({ onAddToList }) {
 
   // Añadir a lista premium (con código)
   const addToPremiumList = async () => {
-    const code = prompt('Ingresa tu código premium:');
-    
-    if (!code) {
-      return; // Usuario canceló
+    // Mostrar popup para pedir código
+    setShowCodePopup(true);
+  };
+
+  // Confirmar código premium del popup
+  const handleConfirmPremiumCode = async () => {
+    if (!premiumCode.trim()) {
+      showNotification('⚠️ Por favor ingresa un código', 'error');
+      return;
     }
 
     try {
       // Validar código
       const { validarCodigoPremium } = await import('../services/peticionesService');
-      const esValido = await validarCodigoPremium(code);
+      const esValido = await validarCodigoPremium(premiumCode);
 
       if (esValido) {
-        // Cerrar modal PRIMERO
+        // Cerrar popup y modal
+        setShowCodePopup(false);
+        setPremiumCode('');
         closeModal();
         
         // Mostrar notificación inmediatamente
@@ -144,17 +153,23 @@ function Biblioteca({ onAddToList }) {
         
         // Guardar en Firebase en segundo plano
         if (selectedTrack && onAddToList) {
-          onAddToList(selectedTrack, 'premium', code);
+          onAddToList(selectedTrack, 'premium', premiumCode);
           const { addPeticionPremium } = await import('../services/peticionesService');
-          await addPeticionPremium(selectedTrack, code);
+          await addPeticionPremium(selectedTrack, premiumCode);
         }
       } else {
-        showNotification('❌ Código inválido. Debe tener al menos 6 caracteres.', 'error');
+        showNotification('❌ Código premium inválido', 'error');
       }
     } catch (error) {
-      console.error('Error:', error);
-      showNotification('❌ Error al procesar. Intenta de nuevo.', 'error');
+      console.error('Error validando código premium:', error);
+      showNotification('❌ Error al validar código', 'error');
     }
+  };
+
+  // Cancelar popup de código
+  const handleCancelPremiumCode = () => {
+    setShowCodePopup(false);
+    setPremiumCode('');
   };
 
   // Formatear duración de milisegundos a MM:SS
@@ -269,6 +284,45 @@ function Biblioteca({ onAddToList }) {
             <button onClick={closeModal} className="btn-cancel">
               Cancelar
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Popup para código premium */}
+      {showCodePopup && (
+        <div className="modal-overlay" onClick={handleCancelPremiumCode}>
+          <div className="code-popup" onClick={(e) => e.stopPropagation()}>
+            <div className="code-popup-header">
+              <h3>⭐ Código Premium</h3>
+              <button className="close-btn" onClick={handleCancelPremiumCode}>✕</button>
+            </div>
+            
+            <div className="code-popup-body">
+              <p>Ingresa tu código premium para añadir esta canción a la lista prioritaria:</p>
+              
+              <input
+                type="text"
+                className="code-input"
+                placeholder="Ej: PREM123"
+                value={premiumCode}
+                onChange={(e) => setPremiumCode(e.target.value.toUpperCase())}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    handleConfirmPremiumCode();
+                  }
+                }}
+                autoFocus
+              />
+              
+              <div className="code-popup-actions">
+                <button onClick={handleCancelPremiumCode} className="btn-secondary">
+                  Cancelar
+                </button>
+                <button onClick={handleConfirmPremiumCode} className="btn-premium">
+                  Confirmar
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}

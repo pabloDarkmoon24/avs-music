@@ -8,8 +8,7 @@ import {
   updateDoc,
   query,
   orderBy,
-  getDoc,
-  getDocs
+  getDoc
 } from 'firebase/firestore';
 import { db } from './firebase';
 
@@ -215,10 +214,7 @@ export function subscribeToListaReproduccion(callback) {
   return onSnapshot(q, (snapshot) => {
     const lista = [];
     snapshot.forEach((doc) => {
-      lista.push({ 
-        firebaseId: doc.id,  // ID del documento de Firebase
-        ...doc.data()        // Datos incluyendo el id de Spotify
-      });
+      lista.push({ id: doc.id, ...doc.data() });
     });
     callback(lista);
   });
@@ -456,84 +452,6 @@ export async function cargarListaAReproduccion(listaId) {
     return { success: true, cantidadCanciones: canciones.length };
   } catch (error) {
     console.error('Error cargando lista a reproducción:', error);
-    return { success: false, error: error.message };
-  }
-}
-
-// ========================================
-// HISTORIAL DE REPRODUCCIÓN
-// ========================================
-
-const HISTORIAL_REPRODUCCION = 'historial_reproduccion';
-
-// Marcar canción como reproducida (mover de cola a historial)
-export async function marcarComoReproducida(cancion) {
-  try {
-    console.log('📝 Marcando como reproducida:', {
-      firebaseId: cancion.firebaseId,
-      spotifyId: cancion.id,
-      name: cancion.name
-    });
-
-    // 1. Añadir al historial
-    const historialDoc = await addDoc(collection(db, HISTORIAL_REPRODUCCION), {
-      ...cancion,
-      reproducidaAt: new Date(),
-      tipoPeticion: cancion.tipoPeticion || 'basica' // Asegurar que tenga tipo
-    });
-    console.log('✅ Añadida al historial con ID:', historialDoc.id);
-
-    // 2. Eliminar de la cola de reproducción usando firebaseId
-    const firebaseIdToDelete = cancion.firebaseId || cancion.id;
-    console.log('🗑️ Eliminando de cola con firebaseId:', firebaseIdToDelete);
-    
-    await deleteFromListaReproduccion(firebaseIdToDelete);
-    console.log('✅ Eliminada de la cola');
-
-    console.log('🎉 Canción movida a historial exitosamente');
-    return { success: true };
-  } catch (error) {
-    console.error('❌ Error marcando como reproducida:', error);
-    return { success: false, error: error.message };
-  }
-}
-
-// Escuchar cambios en el historial de reproducción
-export function subscribeToHistorialReproduccion(callback) {
-  const q = query(
-    collection(db, HISTORIAL_REPRODUCCION),
-    orderBy('reproducidaAt', 'desc')
-  );
-  
-  return onSnapshot(q, (snapshot) => {
-    const historial = [];
-    snapshot.forEach((doc) => {
-      historial.push({ 
-        firebaseId: doc.id,
-        ...doc.data() 
-      });
-    });
-    callback(historial);
-  });
-}
-
-// Limpiar historial (opcional, para el DJ)
-export async function limpiarHistorial() {
-  try {
-    const q = query(collection(db, HISTORIAL_REPRODUCCION));
-    const snapshot = await getDocs(q);
-    
-    const deletePromises = [];
-    snapshot.forEach((doc) => {
-      deletePromises.push(deleteDoc(doc.ref));
-    });
-    
-    await Promise.all(deletePromises);
-    
-    console.log('✅ Historial limpiado');
-    return { success: true };
-  } catch (error) {
-    console.error('Error limpiando historial:', error);
     return { success: false, error: error.message };
   }
 }
