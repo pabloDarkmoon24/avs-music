@@ -1,125 +1,159 @@
 /* src/components/ListaPeticiones.css */
+/* Versión dark coherente con Biblioteca / Gestión Códigos */
 
 .lista-peticiones {
-  padding: 20px;
+  padding: 24px;
   max-width: 1400px;
   margin: 0 auto;
+  color: var(--text);
+  background: var(--bg);
+  font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .lista-peticiones h2 {
   text-align: center;
-  color: #191414;
-  margin-bottom: 30px;
+  color: var(--text);
+  margin-bottom: 24px;
   font-size: 2rem;
+  font-weight: 700;
 }
 
+/* Contenedor de las dos listas */
 .peticiones-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 30px;
+  gap: 24px;
 }
 
 /* Secciones de listas */
 .lista-seccion {
-  background: white;
-  border-radius: 15px;
+  background: var(--panel);
+  border-radius: var(--radius-lg);
   padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(255,255,255,0.04);
 }
 
 .lista-seccion h3 {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 20px;
-  color: #191414;
-  font-size: 1.3rem;
+  margin-bottom: 18px;
+  color: var(--text);
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
 /* Badges */
 .badge-basica,
 .badge-premium {
   padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: bold;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .badge-basica {
-  background: #1db954;
-  color: white;
+  background: linear-gradient(135deg, var(--accent), #3bb3a6);
+  color: #0b1115;
 }
 
 .badge-premium {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent));
+  color: #ffffff;
 }
 
 /* Lista de peticiones */
 .peticiones-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  max-height: 600px;
+  gap: 10px;
+  max-height: 520px;
   overflow-y: auto;
-  padding-right: 5px;
+  padding-right: 4px;
 }
 
-/* Scrollbar personalizado */
+/* Scrollbar personalizado (tema oscuro) */
 .peticiones-list::-webkit-scrollbar {
   width: 8px;
 }
 
 .peticiones-list::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #0b1115;
   border-radius: 10px;
 }
 
 .peticiones-list::-webkit-scrollbar-thumb {
-  background: #888;
+  background: rgba(159,176,186,0.45);
   border-radius: 10px;
 }
 
 .peticiones-list::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: rgba(159,176,186,0.75);
 }
 
 /* Mensaje vacío */
 .empty-message {
   text-align: center;
-  color: #999;
-  padding: 40px 20px;
+  color: var(--muted);
+  padding: 32px 18px;
   font-style: italic;
+  font-size: 0.95rem;
 }
 
 /* Tarjeta de petición */
 .peticion-card {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 14px;
   padding: 12px;
-  background: #f9f9f9;
-  border-radius: 10px;
-  transition: all 0.5s ease-out;
-  border: 2px solid transparent;
+  background: var(--card);
+  border-radius: var(--radius-md);
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+  border: 1px solid rgba(255,255,255,0.04);
   position: relative;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.65);
 }
 
 .peticion-card:hover {
-  background: #f0f0f0;
-  transform: translateX(5px);
+  background: #111b20;
+  transform: translateX(4px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.85);
 }
 
+/* Premium */
 .peticion-card.premium-card {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-  border-color: rgba(102, 126, 234, 0.3);
+  background: linear-gradient(
+    135deg,
+    rgba(124,108,255,0.18) 0%,
+    rgba(79,209,197,0.1) 100%
+  );
+  border-color: rgba(124,108,255,0.5);
 }
 
-/* Animaciones de aprobación/rechazo */
+/* Estados aprobada / rechazada */
 .peticion-card.aprobada {
-  background: linear-gradient(135deg, rgba(29, 185, 84, 0.2) 0%, rgba(30, 215, 96, 0.2) 100%) !important;
-  border: 3px solid #1db954 !important;
+  background: linear-gradient(
+    135deg,
+    rgba(79, 209, 197, 0.16) 0%,
+    rgba(124, 108, 255, 0.18) 100%
+  ) !important;
+  border: 2px solid var(--accent) !important;
+  pointer-events: none;
+}
+
+.peticion-card.rechazada {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 107, 107, 0.18) 0%,
+    rgba(255, 138, 122, 0.18) 100%
+  ) !important;
+  border: 2px solid #ff6b6b !important;
   pointer-events: none;
 }
 
@@ -128,47 +162,33 @@
   animation: aprobarPulse 0.5s ease-out;
 }
 
-.peticion-card.rechazada {
-  background: linear-gradient(135deg, rgba(255, 107, 107, 0.2) 0%, rgba(255, 82, 82, 0.2) 100%) !important;
-  border: 3px solid #ff6b6b !important;
-  pointer-events: none;
-}
-
-/* Solo animar cuando tiene la clase animating */
 .peticion-card.rechazada.animating {
   animation: rechazarShake 0.6s ease-out;
 }
 
 @keyframes aprobarPulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.03);
-  }
-  100% {
-    transform: scale(1);
-  }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
 }
 
 @keyframes rechazarShake {
-  0%, 100% {
-    transform: translateX(0);
-  }
-  10%, 30%, 50%, 70%, 90% {
-    transform: translateX(-8px);
-  }
-  20%, 40%, 60%, 80% {
-    transform: translateX(8px);
-  }
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-7px); }
+  20%, 40%, 60%, 80% { transform: translateX(7px); }
 }
 
 .peticion-cover {
   width: 60px;
   height: 60px;
-  border-radius: 8px;
+  border-radius: 10px;
   object-fit: cover;
   flex-shrink: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.06),
+    rgba(0,0,0,0.25)
+  );
 }
 
 .peticion-info {
@@ -178,8 +198,8 @@
 
 .peticion-info h4 {
   margin: 0 0 3px 0;
-  font-size: 1rem;
-  color: #191414;
+  font-size: 0.98rem;
+  color: var(--text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -187,14 +207,14 @@
 
 .peticion-info .artist {
   margin: 0 0 2px 0;
-  color: #666;
-  font-size: 0.9rem;
+  color: var(--muted);
+  font-size: 0.86rem;
 }
 
 .peticion-info .album {
   margin: 0 0 5px 0;
-  color: #999;
-  font-size: 0.8rem;
+  color: rgba(159,176,186,0.75);
+  font-size: 0.78rem;
   font-style: italic;
   white-space: nowrap;
   overflow: hidden;
@@ -204,33 +224,35 @@
 .peticion-meta {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 5px;
+  gap: 8px;
+  margin-top: 4px;
 }
 
 .peticion-info .duration {
-  color: #999;
-  font-size: 0.8rem;
+  color: rgba(159,176,186,0.75);
+  font-size: 0.78rem;
 }
 
+/* Timestamp / hora */
 .timestamp {
-  color: #ff9800;
-  font-size: 0.8rem;
+  color: var(--gold);
+  font-size: 0.78rem;
   font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 4px;
 }
 
+/* Código usado para la petición */
 .codigo-badge {
   display: inline-block;
-  background: #667eea;
-  color: white;
-  padding: 3px 8px;
-  border-radius: 10px;
-  font-size: 0.75rem;
-  margin-top: 5px;
-  font-weight: bold;
+  background: rgba(124,108,255,0.18);
+  color: var(--accent-2);
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  margin-top: 4px;
+  font-weight: 700;
 }
 
 /* Acciones */
@@ -240,6 +262,7 @@
   flex-shrink: 0;
 }
 
+/* Botones aprobar / rechazar */
 .btn-aprobar,
 .btn-rechazar {
   width: 40px;
@@ -247,14 +270,15 @@
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 1.2rem;
-  font-weight: bold;
-  transition: all 0.3s;
+  font-size: 1.1rem;
+  font-weight: 700;
+  transition: transform .14s ease, box-shadow .16s ease, background .18s ease;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* Deshabilitados */
 .btn-aprobar:disabled,
 .btn-rechazar:disabled {
   opacity: 0;
@@ -262,63 +286,59 @@
   pointer-events: none;
 }
 
-/* Ocultar botones cuando la petición está siendo procesada */
+/* Ocultar botones cuando la petición está procesada */
 .peticion-card.aprobada .peticion-actions,
 .peticion-card.rechazada .peticion-actions {
   display: none;
 }
 
-/* Agregar texto de estado en la tarjeta */
-.peticion-card.aprobada::after {
-  content: "✓ APROBADA";
+/* Texto de estado */
+.peticion-card.aprobada::after,
+.peticion-card.rechazada::after {
   position: absolute;
   top: 50%;
-  right: 20px;
+  right: 18px;
   transform: translateY(-50%);
-  font-size: 0.9rem;
-  font-weight: bold;
-  color: #fff;
-  background: #1db954;
-  padding: 8px 18px;
-  border-radius: 20px;
-  box-shadow: 0 3px 12px rgba(29, 185, 84, 0.4);
-  letter-spacing: 0.5px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  padding: 7px 16px;
+  border-radius: 999px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.4);
+  letter-spacing: 0.6px;
+}
+
+.peticion-card.aprobada::after {
+  content: "✓ APROBADA";
+  background: linear-gradient(135deg, var(--accent), #53e1cf);
 }
 
 .peticion-card.rechazada::after {
   content: "✕ RECHAZADA";
-  position: absolute;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-  font-size: 0.9rem;
-  font-weight: bold;
-  color: #fff;
-  background: #ff6b6b;
-  padding: 8px 18px;
-  border-radius: 20px;
-  box-shadow: 0 3px 12px rgba(255, 107, 107, 0.4);
-  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #ff6b6b, #ff8a7a);
 }
 
+/* Colores botones */
 .btn-aprobar {
-  background: #1db954;
-  color: white;
+  background: linear-gradient(135deg, var(--accent), #53e1cf);
+  color: #0b1115;
+  box-shadow: 0 6px 18px rgba(79,209,197,0.4);
 }
 
 .btn-aprobar:hover {
-  background: #1ed760;
-  transform: scale(1.1);
+  transform: scale(1.06);
+  box-shadow: 0 14px 32px rgba(79,209,197,0.55);
 }
 
 .btn-rechazar {
-  background: #ff6b6b;
-  color: white;
+  background: linear-gradient(135deg, #ff6b6b, #ff8a7a);
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(255,107,107,0.4);
 }
 
 .btn-rechazar:hover {
-  background: #ff5252;
-  transform: scale(1.1);
+  transform: scale(1.06);
+  box-shadow: 0 14px 32px rgba(255,107,107,0.6);
 }
 
 /* Responsive */
@@ -328,7 +348,7 @@
   }
 
   .peticiones-list {
-    max-height: 400px;
+    max-height: 420px;
   }
 }
 
@@ -336,15 +356,30 @@
   .peticion-card {
     flex-direction: column;
     text-align: center;
+    align-items: flex-start;
   }
 
   .peticion-cover {
-    width: 80px;
-    height: 80px;
+    width: 76px;
+    height: 76px;
   }
 
   .peticion-actions {
     width: 100%;
     justify-content: center;
   }
+
+  .peticion-card.aprobada::after,
+  .peticion-card.rechazada::after {
+    position: static;
+    transform: none;
+    margin-top: 8px;
+  }
+}
+
+/* Accesibilidad focus */
+.btn-aprobar:focus,
+.btn-rechazar:focus {
+  outline: 3px solid rgba(79,209,197,0.25);
+  outline-offset: 2px;
 }

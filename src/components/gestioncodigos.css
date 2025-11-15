@@ -1,0 +1,348 @@
+/* src/components/GestionCodigos.css */
+/* Versión dark/clean alineada con Biblioteca.css */
+
+.gestion-codigos {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: var(--text);
+  background: var(--bg);
+  font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Título principal */
+.gestion-codigos h2 {
+  margin-bottom: 18px;
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+}
+
+/* ========================================
+   CREAR CÓDIGO
+======================================== */
+
+.crear-codigo-section {
+  background: linear-gradient(135deg, rgba(124,108,255,0.18), rgba(79,209,197,0.1));
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 28px;
+  box-shadow: var(--shadow-strong);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.crear-codigo-section h3 {
+  color: var(--text);
+  margin: 0 0 18px 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+/* Formulario crear código */
+.crear-codigo-form {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* Input del código */
+.input-codigo {
+  flex: 1;
+  min-width: 220px;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: #0f1b1e;
+  color: var(--accent-2);
+  box-shadow: 0 8px 26px rgba(0,0,0,0.55);
+  outline: none;
+  transition: border-color .18s ease, box-shadow .18s ease, transform .12s ease;
+}
+
+.input-codigo::placeholder {
+  color: rgba(159,176,186,0.5);
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.input-codigo:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(79,209,197,0.55);
+  transform: translateY(-1px);
+}
+
+/* Botones base */
+.btn-generar,
+.btn-crear {
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease, background .18s ease, border-color .18s ease;
+  white-space: nowrap;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* Botón generar (secundario) */
+.btn-generar {
+  background: linear-gradient(90deg, rgba(124,108,255,0.18), rgba(79,209,197,0.1));
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+}
+
+.btn-generar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.6);
+}
+
+/* Botón crear (primario) */
+.btn-crear {
+  background: linear-gradient(90deg, var(--accent-2), var(--accent));
+  color: #ffffff;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.7);
+}
+
+.btn-crear:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.85);
+}
+
+/* Mensajes */
+.mensaje-error,
+.mensaje-exito {
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  margin-top: 14px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Error: rojo en tema oscuro */
+.mensaje-error {
+  background: rgba(255, 107, 107, 0.08);
+  border: 1px solid rgba(255, 107, 107, 0.45);
+  color: #ffc2c2;
+}
+
+/* Éxito: verde/aqua del tema */
+.mensaje-exito {
+  background: rgba(79, 209, 197, 0.08);
+  border: 1px solid rgba(79, 209, 197, 0.5);
+  color: var(--accent);
+}
+
+/* ========================================
+   SECCIONES DE CÓDIGOS
+======================================== */
+
+.codigos-section {
+  background: var(--panel);
+  padding: 22px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 22px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.codigos-section h3 {
+  color: var(--text);
+  margin: 0 0 16px 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.codigos-section.usados {
+  background: #0c1114;
+}
+
+.empty-message {
+  text-align: center;
+  color: var(--muted);
+  padding: 32px;
+  font-size: 0.98rem;
+}
+
+/* ========================================
+   GRID DE CÓDIGOS
+======================================== */
+
+.codigos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 18px;
+}
+
+/* Tarjeta código */
+.codigo-card {
+  background: var(--card);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  border: 1px solid rgba(255,255,255,0.04);
+  transition: transform .16s ease, box-shadow .16s ease, border-color .18s ease, background .18s ease;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+  position: relative;
+  overflow: hidden;
+}
+
+.codigo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 48px rgba(0,0,0,0.8);
+}
+
+/* Estado disponible */
+.codigo-card.disponible {
+  border-color: rgba(79,209,197,0.5);
+  background: linear-gradient(135deg, rgba(79,209,197,0.12), rgba(124,108,255,0.08));
+}
+
+/* Estado usado */
+.codigo-card.usado {
+  border-color: rgba(159,176,186,0.22);
+  opacity: 0.8;
+}
+
+/* Header de la tarjeta */
+.codigo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Texto del código */
+.codigo-text {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--text);
+  font-family: "Courier New", monospace;
+}
+
+/* Badges */
+.badge-disponible,
+.badge-usado {
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.badge-disponible {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #ffffff;
+}
+
+.badge-usado {
+  background: rgba(159,176,186,0.45);
+  color: #0b1115;
+}
+
+/* Footer tarjeta */
+.codigo-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.fecha-creacion {
+  color: rgba(159,176,186,0.9);
+  font-size: 0.8rem;
+}
+
+.codigo-fechas {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fecha-small {
+  color: rgba(159,176,186,0.7);
+  font-size: 0.72rem;
+}
+
+/* Botón eliminar */
+.btn-eliminar-codigo {
+  background: linear-gradient(135deg, #ff6b6b, #ff8a7a);
+  color: #ffffff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform .12s ease, box-shadow .16s ease, background .18s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-eliminar-codigo:hover {
+  transform: scale(1.06) translateY(-1px);
+  box-shadow: 0 12px 30px rgba(255,107,107,0.35);
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 768px) {
+  .gestion-codigos {
+    padding: 16px;
+  }
+
+  .gestion-codigos h2 {
+    font-size: 1.6rem;
+  }
+
+  .crear-codigo-section {
+    padding: 18px;
+  }
+
+  .crear-codigo-form {
+    flex-direction: column;
+  }
+
+  .input-codigo {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .codigos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .codigo-text {
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+  }
+}
+
+/* Accesibilidad focus */
+.btn-generar:focus,
+.btn-crear:focus,
+.btn-eliminar-codigo:focus,
+.input-codigo:focus {
+  outline: 3px solid rgba(79,209,197,0.25);
+  outline-offset: 3px;
+}

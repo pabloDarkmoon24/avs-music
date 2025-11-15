@@ -1,18 +1,23 @@
 /* src/components/ReproduccionActual.css */
+/* Versión dark, coherente con el resto de la app */
 
 .reproduccion-actual {
-  padding: 20px;
-  max-width: 1400px;
+  padding: 24px;
+  max-width: 1200px;
   margin: 0 auto;
+  color: var(--text);
+  background: var(--bg);
+  font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .reproduccion-actual h2 {
-  color: #191414;
-  margin-bottom: 30px;
+  color: var(--text);
+  margin-bottom: 24px;
   font-size: 2rem;
   display: flex;
   align-items: center;
   gap: 10px;
+  font-weight: 700;
 }
 
 /* ========================================
@@ -21,46 +26,49 @@
 
 .seccion-cola,
 .seccion-historial {
-  background: white;
-  border-radius: 16px;
-  padding: 25px;
-  margin-bottom: 30px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: var(--panel);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  margin-bottom: 26px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(255,255,255,0.04);
 }
 
 .seccion-historial {
-  background: #f9f9f9;
+  background: #0c1116;
 }
 
 .seccion-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 15px;
-  border-bottom: 2px solid #f0f0f0;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
 .seccion-header h3 {
-  color: #191414;
-  font-size: 1.4rem;
+  color: var(--text);
+  font-size: 1.25rem;
   margin: 0;
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
+/* Contador de canciones */
 .seccion-header .contador {
-  background: linear-gradient(135deg, #1db954 0%, #1ed760 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #0b1115;
   padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 600;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
 }
 
 .seccion-historial .seccion-header .contador {
-  background: linear-gradient(135deg, #666 0%, #888 100%);
+  background: linear-gradient(135deg, rgba(159,176,186,0.7), rgba(159,176,186,0.4));
+  color: #0b1115;
 }
 
 /* ========================================
@@ -69,19 +77,20 @@
 
 .empty-state {
   text-align: center;
-  padding: 60px 20px;
-  color: #999;
+  padding: 52px 18px;
+  color: var(--muted);
 }
 
 .empty-state p {
-  font-size: 1.2rem;
-  margin: 0 0 10px 0;
-  color: #666;
+  font-size: 1.05rem;
+  margin: 0 0 8px 0;
+  color: var(--text);
+  opacity: 0.8;
 }
 
 .empty-state small {
-  color: #999;
-  font-size: 0.9rem;
+  color: var(--muted);
+  font-size: 0.86rem;
 }
 
 /* ========================================
@@ -91,36 +100,38 @@
 .lista-canciones {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .cancion-card {
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding: 15px;
-  background: #fafafa;
-  border-radius: 12px;
-  border: 2px solid #f0f0f0;
-  transition: all 0.3s;
+  gap: 14px;
+  padding: 14px;
+  background: var(--card);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255,255,255,0.04);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
   position: relative;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.65);
 }
 
 .cancion-card:hover {
-  border-color: #1db954;
-  transform: translateX(5px);
-  box-shadow: 0 4px 12px rgba(29, 185, 84, 0.15);
+  border-color: var(--accent);
+  transform: translateX(4px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.85);
 }
 
+/* Historial */
 .historial-card {
-  background: #f5f5f5;
-  opacity: 0.85;
+  background: #111821;
+  opacity: 0.88;
 }
 
 .historial-card:hover {
   opacity: 1;
-  border-color: #999;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: rgba(159,176,186,0.5);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.7);
 }
 
 /* ========================================
@@ -128,14 +139,54 @@
 ======================================== */
 
 .orden-numero {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  color: #1db954;
+  color: var(--accent);
   min-width: 40px;
   text-align: center;
-  background: linear-gradient(135deg, rgba(29, 185, 84, 0.1) 0%, rgba(30, 215, 96, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(79,209,197,0.16) 0%,
+    rgba(124,108,255,0.14) 100%
+  );
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+/* Drag handle */
+.drag-handle {
+  font-size: 1.1rem;
+  color: rgba(159,176,186,0.75);
+  cursor: grab;
+  line-height: 0.8;
+  user-select: none;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+/* Estilos para drag & drop */
+.cancion-card[draggable="true"] {
+  cursor: move;
+}
+
+.cancion-card.dragging {
+  opacity: 0.5;
+  border: 2px dashed var(--accent);
+  background: rgba(79,209,197,0.08);
+}
+
+.cancion-card[draggable="true"]:hover {
+  cursor: grab;
+}
+
+.cancion-card[draggable="true"]:active {
+  cursor: grabbing;
 }
 
 /* ========================================
@@ -145,10 +196,15 @@
 .cancion-cover {
   width: 70px;
   height: 70px;
-  border-radius: 10px;
+  border-radius: 12px;
   object-fit: cover;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.45);
   flex-shrink: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.06),
+    rgba(0,0,0,0.25)
+  );
 }
 
 /* ========================================
@@ -161,9 +217,9 @@
 }
 
 .cancion-info h4 {
-  margin: 0 0 5px 0;
-  color: #191414;
-  font-size: 1.1rem;
+  margin: 0 0 4px 0;
+  color: var(--text);
+  font-size: 1.02rem;
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
@@ -172,17 +228,17 @@
 
 .cancion-info .artist {
   margin: 0 0 3px 0;
-  color: #666;
-  font-size: 0.95rem;
+  color: var(--muted);
+  font-size: 0.9rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .cancion-info .album {
-  margin: 0 0 8px 0;
-  color: #999;
-  font-size: 0.85rem;
+  margin: 0 0 7px 0;
+  color: rgba(159,176,186,0.75);
+  font-size: 0.8rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -196,14 +252,15 @@
 }
 
 .cancion-meta .duration {
-  color: #666;
-  font-size: 0.85rem;
+  color: rgba(159,176,186,0.85);
+  font-size: 0.82rem;
   font-weight: 500;
 }
 
 .cancion-meta .timestamp {
-  color: #999;
-  font-size: 0.8rem;
+  color: var(--gold);
+  font-size: 0.78rem;
+  font-weight: 600;
 }
 
 /* ========================================
@@ -211,9 +268,9 @@
 ======================================== */
 
 .badge-tipo {
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 0.75rem;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 0.74rem;
   font-weight: 600;
   display: inline-flex;
   align-items: center;
@@ -221,22 +278,22 @@
 }
 
 .badge-tipo.basica {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent));
+  color: #ffffff;
 }
 
 .badge-tipo.premium {
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  color: white;
+  color: #ffffff;
   animation: premiumPulse 2s infinite;
 }
 
 @keyframes premiumPulse {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(245, 87, 108, 0.4);
+    box-shadow: 0 0 0 0 rgba(245, 87, 108, 0.45);
   }
   50% {
-    box-shadow: 0 0 0 6px rgba(245, 87, 108, 0);
+    box-shadow: 0 0 0 7px rgba(245, 87, 108, 0);
   }
 }
 
@@ -245,16 +302,16 @@
 ======================================== */
 
 .badge-reproducida {
-  background: linear-gradient(135deg, #1db954 0%, #1ed760 100%);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 0.85rem;
+  background: linear-gradient(135deg, var(--accent), #53e1cf);
+  color: #0b1115;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
   font-weight: 600;
   display: flex;
   align-items: center;
   gap: 5px;
-  box-shadow: 0 2px 8px rgba(29, 185, 84, 0.3);
+  box-shadow: 0 3px 12px rgba(79,209,197,0.4);
 }
 
 /* ========================================
@@ -263,47 +320,46 @@
 
 .cancion-acciones {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
 }
 
 .cancion-acciones button {
-  padding: 10px 18px;
+  padding: 9px 16px;
   border: none;
   border-radius: 10px;
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: transform .14s ease, box-shadow .18s ease, background .18s ease;
   white-space: nowrap;
 }
 
+/* Botón reproducida */
 .btn-reproducida {
-  background: linear-gradient(135deg, #1db954 0%, #1ed760 100%);
-  color: white;
-  box-shadow: 0 2px 8px rgba(29, 185, 84, 0.2);
+  background: linear-gradient(135deg, var(--accent), #53e1cf);
+  color: #0b1115;
+  box-shadow: 0 6px 18px rgba(79,209,197,0.4);
 }
 
 .btn-reproducida:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(29, 185, 84, 0.4);
+  box-shadow: 0 14px 32px rgba(79,209,197,0.55);
 }
 
-.btn-reproducida:active {
-  transform: translateY(0);
-}
-
+/* Botón eliminar */
 .btn-eliminar {
-  background: #ff6b6b;
-  color: white;
-  font-size: 1.2rem;
-  padding: 8px 12px;
+  background: linear-gradient(135deg, #ff6b6b, #ff8a7a);
+  color: #ffffff;
+  font-size: 1.1rem;
+  padding: 7px 12px;
   min-width: 40px;
+  box-shadow: 0 6px 18px rgba(255,107,107,0.4);
 }
 
 .btn-eliminar:hover {
-  background: #ff5252;
-  transform: scale(1.1);
+  transform: scale(1.06);
+  box-shadow: 0 14px 32px rgba(255,107,107,0.6);
 }
 
 /* ========================================
@@ -312,7 +368,7 @@
 
 @media (max-width: 1024px) {
   .reproduccion-actual {
-    padding: 15px;
+    padding: 18px;
   }
 
   .cancion-card {
@@ -322,28 +378,28 @@
   .cancion-acciones {
     width: 100%;
     justify-content: flex-end;
-    margin-top: 10px;
+    margin-top: 8px;
   }
 }
 
 @media (max-width: 768px) {
   .reproduccion-actual h2 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
 
   .seccion-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 8px;
   }
 
   .seccion-header h3 {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
   }
 
   .orden-numero {
-    font-size: 1.2rem;
-    min-width: 35px;
+    font-size: 1.1rem;
+    min-width: 34px;
     padding: 8px;
   }
 
@@ -353,24 +409,24 @@
   }
 
   .cancion-info h4 {
-    font-size: 1rem;
+    font-size: 0.98rem;
   }
 
   .cancion-info .artist {
-    font-size: 0.85rem;
+    font-size: 0.84rem;
   }
 
   .cancion-info .album {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
   }
 
   .cancion-acciones {
-    gap: 8px;
+    gap: 6px;
   }
 
   .cancion-acciones button {
     font-size: 0.8rem;
-    padding: 8px 14px;
+    padding: 7px 14px;
   }
 
   .btn-reproducida {
@@ -380,12 +436,12 @@
 
 @media (max-width: 480px) {
   .reproduccion-actual {
-    padding: 10px;
+    padding: 12px;
   }
 
   .seccion-cola,
   .seccion-historial {
-    padding: 15px;
+    padding: 16px;
   }
 
   .cancion-card {
@@ -398,8 +454,8 @@
   }
 
   .cancion-cover {
-    width: 50px;
-    height: 50px;
+    width: 52px;
+    height: 52px;
   }
 
   .cancion-info h4 {
@@ -418,11 +474,207 @@
   .btn-eliminar {
     font-size: 1rem;
     padding: 6px 10px;
-    min-width: 35px;
+    min-width: 34px;
   }
 
   .badge-reproducida {
     font-size: 0.75rem;
-    padding: 6px 12px;
+    padding: 6px 11px;
   }
+}
+
+/* ========================================
+   POPUP DE ELIMINACIÓN
+======================================== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 12, 0.78);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1300;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.delete-popup {
+  background: linear-gradient(180deg, #0d1418, #0b1114);
+  border-radius: 18px;
+  max-width: 480px;
+  width: 92%;
+  box-shadow: var(--shadow-strong);
+  animation: slideUp 0.28s ease-out;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.delete-popup-header {
+  background: linear-gradient(135deg, #ff6b6b, #ff8a7a);
+  padding: 18px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffffff;
+}
+
+.delete-popup-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.delete-popup-header .close-btn {
+  background: rgba(0,0,0,0.18);
+  border: none;
+  color: #ffffff;
+  font-size: 1.4rem;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .2s ease, background .2s ease;
+}
+
+.delete-popup-header .close-btn:hover {
+  background: rgba(0,0,0,0.28);
+  transform: rotate(90deg);
+}
+
+.delete-popup-body {
+  padding: 22px;
+}
+
+.cancion-preview {
+  display: flex;
+  gap: 14px;
+  padding: 14px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 12px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.preview-cover {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.preview-info h4 {
+  margin: 0 0 4px 0;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.preview-info p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.warning-text {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0 0 22px 0;
+  text-align: center;
+}
+
+.delete-popup-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.delete-popup-actions button {
+  flex: 1;
+  padding: 11px;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.96rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .16s ease, box-shadow .2s ease, background .18s ease;
+}
+
+/* Botón cancelar */
+.btn-cancel {
+  background: #121a20;
+  color: var(--muted);
+}
+
+.btn-cancel:hover {
+  background: #161f26;
+}
+
+/* Botón confirmar eliminar */
+.btn-delete-confirm {
+  background: linear-gradient(135deg, #ff6b6b, #ff8a7a);
+  color: #ffffff;
+  box-shadow: 0 8px 22px rgba(255,107,107,0.45);
+}
+
+.btn-delete-confirm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(255,107,107,0.6);
+}
+
+@media (max-width: 768px) {
+  .delete-popup {
+    max-width: 95%;
+  }
+  
+  .delete-popup-header h3 {
+    font-size: 1.1rem;
+  }
+  
+  .cancion-preview {
+    padding: 12px;
+  }
+  
+  .preview-cover {
+    width: 52px;
+    height: 52px;
+  }
+  
+  .preview-info h4 {
+    font-size: 0.96rem;
+  }
+  
+  .preview-info p {
+    font-size: 0.84rem;
+  }
+}
+
+/* Accesibilidad */
+.btn-reproducida:focus,
+.btn-eliminar:focus,
+.btn-cancel:focus,
+.btn-delete-confirm:focus,
+.close-btn:focus {
+  outline: 3px solid rgba(79,209,197,0.25);
+  outline-offset: 3px;
 }

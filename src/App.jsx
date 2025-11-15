@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { auth } from './services/firebase'
 import Navbar from './components/navbar'
-import Login from './components/login'
-import Biblioteca from './components/biblioteca'
+import Login from './components/Login'
+import Biblioteca from './components/Biblioteca'
 import ListaPeticiones from './components/listapeticiones'
 import ReproduccionActual from './components/reproduccionactual'
+import GestionCodigos from './components/gestioncodigos'
 import './App.css'
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showLogin, setShowLogin] = useState(false);
+  const [estadosPeticiones, setEstadosPeticiones] = useState({}); // Estado global de peticiones
 
   // Verificar si hay usuario autenticado
   useEffect(() => {
@@ -57,9 +59,15 @@ function App() {
       case 'biblioteca':
         return <Biblioteca onAddToList={handleAddToList} />;
       case 'peticiones':
-        return <ListaPeticiones isDJ={!!user} />;
+        return <ListaPeticiones 
+          isDJ={!!user} 
+          estadosPeticiones={estadosPeticiones}
+          setEstadosPeticiones={setEstadosPeticiones}
+        />;
       case 'reproduccion':
         return <ReproduccionActual isDJ={!!user} />;
+      case 'codigos':
+        return <GestionCodigos />;
       default:
         return <Biblioteca onAddToList={handleAddToList} />;
     }

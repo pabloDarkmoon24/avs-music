@@ -15,6 +15,7 @@ function Biblioteca({ onAddToList }) {
   const [notification, setNotification] = useState(null);
   const [showCodePopup, setShowCodePopup] = useState(false);
   const [premiumCode, setPremiumCode] = useState('');
+  const [codeError, setCodeError] = useState(''); // Error dentro del popup
   const audioRef = useRef(null);
 
   // Mostrar notificación
@@ -133,7 +134,7 @@ function Biblioteca({ onAddToList }) {
   // Confirmar código premium del popup
   const handleConfirmPremiumCode = async () => {
     if (!premiumCode.trim()) {
-      showNotification('⚠️ Por favor ingresa un código', 'error');
+      setCodeError('⚠️ Por favor ingresa un código');
       return;
     }
 
@@ -146,6 +147,7 @@ function Biblioteca({ onAddToList }) {
         // Cerrar popup y modal
         setShowCodePopup(false);
         setPremiumCode('');
+        setCodeError('');
         closeModal();
         
         // Mostrar notificación inmediatamente
@@ -158,11 +160,11 @@ function Biblioteca({ onAddToList }) {
           await addPeticionPremium(selectedTrack, premiumCode);
         }
       } else {
-        showNotification('❌ Código premium inválido', 'error');
+        setCodeError('❌ Código premium inválido');
       }
     } catch (error) {
       console.error('Error validando código premium:', error);
-      showNotification('❌ Error al validar código', 'error');
+      setCodeError('❌ Error al validar código');
     }
   };
 
@@ -170,6 +172,7 @@ function Biblioteca({ onAddToList }) {
   const handleCancelPremiumCode = () => {
     setShowCodePopup(false);
     setPremiumCode('');
+    setCodeError('');
   };
 
   // Formatear duración de milisegundos a MM:SS
@@ -305,7 +308,10 @@ function Biblioteca({ onAddToList }) {
                 className="code-input"
                 placeholder="Ej: PREM123"
                 value={premiumCode}
-                onChange={(e) => setPremiumCode(e.target.value.toUpperCase())}
+                onChange={(e) => {
+                  setPremiumCode(e.target.value.toUpperCase());
+                  setCodeError(''); // Limpiar error al escribir
+                }}
                 onKeyPress={(e) => {
                   if (e.key === 'Enter') {
                     handleConfirmPremiumCode();
@@ -313,6 +319,11 @@ function Biblioteca({ onAddToList }) {
                 }}
                 autoFocus
               />
+              
+              {/* Mensaje de error */}
+              {codeError && (
+                <p className="code-error-message">{codeError}</p>
+              )}
               
               <div className="code-popup-actions">
                 <button onClick={handleCancelPremiumCode} className="btn-secondary">
