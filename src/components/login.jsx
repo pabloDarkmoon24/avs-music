@@ -1,10 +1,10 @@
-// src/components/Login.jsx
+// src/components/Login.jsx 
 import { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../services/firebase';
 import './Login.css';
 
-function Login({ onLoginSuccess }) {
+function Login({ onLoginSuccess, onBackToClient }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -96,8 +96,16 @@ function Login({ onLoginSuccess }) {
         </form>
 
         <div className="login-footer">
-          <p>💡 <strong>Modo Cliente:</strong> No necesitas iniciar sesión</p>
-          <p>Simplemente busca y solicita canciones</p>
+          <p>¿No eres DJ?</p>
+          {onBackToClient && (
+            <button 
+              type="button"
+              className="btn-login-cliente"
+              onClick={onBackToClient}
+            >
+              😎 Entrar como cliente
+            </button>
+          )}
         </div>
       </div>
     </div>

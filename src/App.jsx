@@ -1,3 +1,4 @@
+// src/App.jsx
 import { useState, useEffect } from 'react'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { auth } from './services/firebase'
@@ -14,14 +15,14 @@ function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showLogin, setShowLogin] = useState(false);
-  const [estadosPeticiones, setEstadosPeticiones] = useState({}); // Estado global de peticiones
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
+  const [estadosPeticiones, setEstadosPeticiones] = useState({});
 
   // Verificar si hay usuario autenticado
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
-      console.log('Usuario actual:', currentUser?.email || 'No autenticado');
     });
 
     return () => unsubscribe();
@@ -32,64 +33,53 @@ function App() {
     setShowLogin(false);
   };
 
+  // Logout SIN alert() – ahora muestra popup bonito
   const handleLogout = async () => {
-    const confirmar = confirm('¿Cerrar sesión como DJ?');
-    if (!confirmar) return;
-
     try {
       await signOut(auth);
       setUser(null);
-      alert('✓ Sesión cerrada correctamente');
+      setShowLogoutPopup(true);
+
+      setTimeout(() => {
+        setShowLogoutPopup(false);
+      }, 2500);
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
-      alert('❌ Error al cerrar sesión');
-    }
-  };
-
-  const handleAddToList = (track, listType, code = null) => {
-    console.log('Canción añadida:', track);
-    console.log('Tipo de lista:', listType);
-    if (code) {
-      console.log('Código usado:', code);
     }
   };
 
   const renderSeccion = () => {
     switch (seccionActiva) {
       case 'biblioteca':
-        return <Biblioteca onAddToList={handleAddToList} />;
+        return <Biblioteca onAddToList={() => {}} />;
       case 'peticiones':
-        return <ListaPeticiones 
-          isDJ={!!user} 
-          estadosPeticiones={estadosPeticiones}
-          setEstadosPeticiones={setEstadosPeticiones}
-        />;
+        return (
+          <ListaPeticiones 
+            isDJ={!!user} 
+            estadosPeticiones={estadosPeticiones}
+            setEstadosPeticiones={setEstadosPeticiones}
+          />
+        );
       case 'reproduccion':
         return <ReproduccionActual isDJ={!!user} />;
       case 'codigos':
         return <GestionCodigos />;
       default:
-        return <Biblioteca onAddToList={handleAddToList} />;
+        return <Biblioteca onAddToList={() => {}} />;
     }
   };
 
-  // Mostrar loading mientras verifica autenticación
   if (loading) {
     return (
-      <div style={{ 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'center', 
-        minHeight: '100vh',
-        fontSize: '1.5rem',
-        color: '#1db954'
+      <div style={{
+        display:'flex', alignItems:'center', justifyContent:'center',
+        minHeight:'100vh', fontSize:'1.5rem', color:'#1db954'
       }}>
         ⏳ Cargando...
       </div>
     );
   }
 
-  // Mostrar pantalla de login
   if (showLogin) {
     return <Login onLoginSuccess={handleLoginSuccess} />;
   }
@@ -101,24 +91,24 @@ function App() {
         onCambiarSeccion={setSeccionActiva}
         isDJ={!!user}
         onLogout={user ? handleLogout : null}
+        onLoginDJ={!user ? () => setShowLogin(true) : null}
       />
       
       <main>
         {renderSeccion()}
       </main>
 
-      {/* Botón para abrir login (solo si no es DJ) */}
-      {!user && (
-        <button 
-          onClick={() => setShowLogin(true)}
-          className="toggle-dj-btn"
-          title="Iniciar sesión como DJ"
-        >
-          🎧 Acceso DJ
-        </button>
+      {/* POPUP DE LOGOUT */}
+      {showLogoutPopup && (
+        <div className="logout-popup">
+          <div className="logout-popup-content">
+            <span className="logout-icon">👋</span>
+            <p>Sesión finalizada correctamente</p>
+          </div>
+        </div>
       )}
     </div>
   )
 }
 
-export default App
+export default App;

@@ -2,8 +2,9 @@
 import { useState } from 'react';
 import './Navbar.css';
 
-function Navbar({ seccionActiva, onCambiarSeccion, isDJ, onLogout }) {
+function Navbar({ seccionActiva, onCambiarSeccion, isDJ, onLogout, onLoginDJ }) {
   const [showCleanPopup, setShowCleanPopup] = useState(false);
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
   const [isClearing, setIsClearing] = useState(false);
 
   const secciones = [
@@ -12,7 +13,6 @@ function Navbar({ seccionActiva, onCambiarSeccion, isDJ, onLogout }) {
     { id: 'reproduccion', nombre: '▶️ Reproducción', icono: '🎧' }
   ];
 
-  // Agregar sección de códigos solo para DJ
   const seccionesConCodigos = isDJ 
     ? [...secciones, { id: 'codigos', nombre: '🎫 Códigos', icono: '🎫' }]
     : secciones;
@@ -25,28 +25,31 @@ function Navbar({ seccionActiva, onCambiarSeccion, isDJ, onLogout }) {
       const result = await limpiarTodo();
       
       if (result.success) {
-        console.log('✅ Base de datos limpiada exitosamente');
-        setShowCleanPopup(false);
-      } else {
-        console.error('❌ Error al limpiar:', result.error);
         setShowCleanPopup(false);
       }
     } catch (error) {
-      console.error('❌ Error:', error);
-      setShowCleanPopup(false);
+      console.error(error);
     } finally {
       setIsClearing(false);
     }
   };
 
+  const handleConfirmLogout = () => {
+    if (onLogout) onLogout();
+    setShowLogoutPopup(false);
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
+
+        {/* Marca */}
         <div className="navbar-brand">
           <h1>🎧 AVSMUSIC</h1>
           <span className="navbar-subtitle">DJ App</span>
         </div>
 
+        {/* Menú central */}
         <div className="navbar-menu">
           {seccionesConCodigos.map((seccion) => (
             <button
@@ -60,79 +63,47 @@ function Navbar({ seccionActiva, onCambiarSeccion, isDJ, onLogout }) {
           ))}
         </div>
 
+        {/* Zona derecha */}
         <div className="navbar-status">
-          <span className={`status-badge ${isDJ ? 'dj' : 'cliente'}`}>
-            {isDJ ? '🎧 DJ' : '👤 Cliente'}
-          </span>
-          
+
+          {/* Botón login DJ */}
+          {!isDJ && onLoginDJ && (
+            <button className="btn-login-dj" onClick={onLoginDJ}>
+              🎧 Acceso DJ
+            </button>
+          )}
+
+          {/* Opciones DJ */}
           {isDJ && (
             <>
-              <button 
-                onClick={() => setShowCleanPopup(true)} 
-                className="btn-clean-all" 
-                title="Limpiar toda la base de datos"
-              >
+              <button className="btn-clean-all" onClick={() => setShowCleanPopup(true)}>
                 🗑️ Limpiar Todo
               </button>
-              
-              {onLogout && (
-                <button onClick={onLogout} className="btn-logout" title="Cerrar sesión">
-                  🚪 Salir
-                </button>
-              )}
+
+              <button className="btn-logout" onClick={() => setShowLogoutPopup(true)}>
+                🚪 Salir
+              </button>
             </>
           )}
         </div>
       </div>
 
-      {/* POPUP DE CONFIRMACIÓN PARA LIMPIAR TODO */}
+      {/* Popup LIMPIAR TODO */}
       {showCleanPopup && (
         <div className="modal-overlay-clean" onClick={() => !isClearing && setShowCleanPopup(false)}>
           <div className="clean-popup" onClick={(e) => e.stopPropagation()}>
             <div className="clean-popup-header">
               <h3>⚠️ Limpiar Base de Datos</h3>
-              <button 
-                className="close-btn" 
-                onClick={() => setShowCleanPopup(false)}
-                disabled={isClearing}
-              >
-                ✕
-              </button>
+              <button className="close-btn" onClick={() => setShowCleanPopup(false)}>✕</button>
             </div>
-            
+
             <div className="clean-popup-body">
-              <div className="warning-box">
-                <span className="warning-icon">⚠️</span>
-                <p className="warning-title">¡ADVERTENCIA!</p>
-                <p className="warning-desc">
-                  Esta acción eliminará <strong>TODA</strong> la información:
-                </p>
-              </div>
-
-              <ul className="items-to-delete">
-                <li>🗑️ Cola de reproducción</li>
-                <li>📜 Historial de reproducción</li>
-                <li>📋 Peticiones básicas</li>
-                <li>⭐ Peticiones premium</li>
-              </ul>
-
-              <p className="final-warning">
-                Esta acción <strong>NO SE PUEDE DESHACER</strong>.
-              </p>
-              
+              <p className="warning-desc">Esto eliminará TODO de la base de datos</p>
               <div className="clean-popup-actions">
-                <button 
-                  onClick={() => setShowCleanPopup(false)} 
-                  className="btn-cancel-clean"
-                  disabled={isClearing}
-                >
+                <button className="btn-cancel-clean" onClick={() => setShowCleanPopup(false)}>
                   Cancelar
                 </button>
-                <button 
-                  onClick={handleLimpiarTodo} 
-                  className="btn-confirm-clean"
-                  disabled={isClearing}
-                >
+                <button className="btn-confirm-clean" onClick={handleLimpiarTodo}>
                   {isClearing ? 'Limpiando...' : 'Sí, Limpiar Todo'}
                 </button>
               </div>
@@ -140,6 +111,33 @@ function Navbar({ seccionActiva, onCambiarSeccion, isDJ, onLogout }) {
           </div>
         </div>
       )}
+
+      {/* Popup CERRAR SESIÓN */}
+      {showLogoutPopup && (
+        <div className="modal-overlay-clean" onClick={() => setShowLogoutPopup(false)}>
+          <div className="clean-popup" onClick={(e) => e.stopPropagation()}>
+            <div className="clean-popup-header">
+              <h3>🚪 Cerrar Sesión</h3>
+              <button className="close-btn" onClick={() => setShowLogoutPopup(false)}>✕</button>
+            </div>
+
+            <div className="clean-popup-body">
+              <p className="warning-desc">¿Seguro que quieres salir del modo DJ?</p>
+
+              <div className="clean-popup-actions">
+                <button className="btn-cancel-clean" onClick={() => setShowLogoutPopup(false)}>
+                  Cancelar
+                </button>
+
+                <button className="btn-confirm-clean" onClick={handleConfirmLogout}>
+                  Sí, cerrar sesión
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
     </nav>
   );
 }

@@ -332,6 +332,24 @@
   color: #ffd2d2;
 }
 
+.btn-login-dj {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  color: #e9f3f6;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+}
+
+.btn-login-dj:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(90deg, rgba(79,209,197,0.16), rgba(124,108,255,0.12));
+  box-shadow: 0 12px 30px rgba(0,0,0,0.7);
+}
+
 /* Lista de items a eliminar */
 .items-to-delete {
   list-style: none;
