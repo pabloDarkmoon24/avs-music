@@ -34,19 +34,19 @@ function App() {
   };
 
   // Logout SIN alert() – ahora muestra popup bonito
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      setUser(null);
-      setShowLogoutPopup(true);
+const handleLogout = async () => {
+  try {
+    await signOut(auth);
 
-      setTimeout(() => {
-        setShowLogoutPopup(false);
-      }, 2500);
-    } catch (error) {
-      console.error('Error al cerrar sesión:', error);
-    }
-  };
+    setShowLogoutPopup(true);
+
+    setTimeout(() => {
+      window.location.reload();  // recarga y limpia todo
+    }, 900); // espera a que el popup aparezca antes de recargar
+  } catch (error) {
+    console.error('Error al cerrar sesión:', error);
+  }
+};
 
   const renderSeccion = () => {
     switch (seccionActiva) {
