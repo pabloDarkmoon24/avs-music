@@ -140,7 +140,7 @@ function ListaPeticiones({ isDJ = false, estadosPeticiones = {}, setEstadosPetic
     }
   };
 
-  const handleRechazar = async (firebaseId, tipo) => {
+  const handleRechazar = async (firebaseId, tipo, peticion = null) => {
     console.log('🔴 Rechazando Firebase ID:', firebaseId);
     
     // Verificar usando estado
@@ -161,6 +161,23 @@ function ListaPeticiones({ isDJ = false, estadosPeticiones = {}, setEstadosPetic
         return newSet;
       });
     }, 600);
+    
+    // Si es premium, reactivar el código
+    if (tipo === 'premium' && peticion?.codigo) {
+      console.log('🔄 Reactivando código premium:', peticion.codigo);
+      try {
+        const { reactivarCodigoPremium } = await import('../services/peticionesService');
+        const result = await reactivarCodigoPremium(peticion.codigo);
+        
+        if (result.success) {
+          console.log('✅ Código reactivado exitosamente');
+        } else {
+          console.error('⚠️ No se pudo reactivar el código:', result.error);
+        }
+      } catch (error) {
+        console.error('❌ Error al reactivar código:', error);
+      }
+    }
     
     // Actualizar en Firebase
     console.log('📝 Actualizando estado rechazada en Firebase...');
@@ -257,7 +274,7 @@ function ListaPeticiones({ isDJ = false, estadosPeticiones = {}, setEstadosPetic
                         ✓
                       </button>
                       <button 
-                        onClick={() => handleRechazar(peticion.firebaseId, 'basica')}
+                        onClick={() => handleRechazar(peticion.firebaseId, 'basica', peticion)}
                         className="btn-rechazar"
                         title="Rechazar petición"
                         disabled={!!estadosFinal[peticion.firebaseId]}
@@ -315,7 +332,7 @@ function ListaPeticiones({ isDJ = false, estadosPeticiones = {}, setEstadosPetic
                         ✓
                       </button>
                       <button 
-                        onClick={() => handleRechazar(peticion.firebaseId, 'premium')}
+                        onClick={() => handleRechazar(peticion.firebaseId, 'premium', peticion)}
                         className="btn-rechazar"
                         title="Rechazar petición"
                         disabled={!!estadosFinal[peticion.firebaseId]}

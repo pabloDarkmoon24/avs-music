@@ -371,6 +371,37 @@ export async function marcarCodigoComoUsado(codigo) {
   }
 }
 
+// Reactivar código premium (cuando se rechaza una petición)
+export async function reactivarCodigoPremium(codigo) {
+  try {
+    console.log('🔄 Reactivando código:', codigo);
+    
+    const q = query(
+      collection(db, CODIGOS_PREMIUM),
+      where('codigo', '==', codigo.toUpperCase())
+    );
+    
+    const snapshot = await getDocs(q);
+    
+    if (snapshot.empty) {
+      console.log('⚠️ Código no encontrado en BD');
+      return { success: false, error: 'Código no encontrado' };
+    }
+    
+    const codigoDoc = snapshot.docs[0];
+    await updateDoc(codigoDoc.ref, {
+      usado: false,
+      fechaUso: null // Eliminar la fecha de uso
+    });
+    
+    console.log('✅ Código reactivado exitosamente');
+    return { success: true };
+  } catch (error) {
+    console.error('❌ Error reactivando código:', error);
+    return { success: false, error: error.message };
+  }
+}
+
 // Crear código premium (para el DJ)
 export async function crearCodigoPremium(codigo) {
   try {

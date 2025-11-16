@@ -45,7 +45,7 @@ function Navbar({ seccionActiva, onCambiarSeccion, isDJ, onLogout, onLoginDJ }) 
 
         {/* Marca */}
         <div className="navbar-brand">
-          <h1>🎧 AVSMUSIC</h1>
+          <h1>🎧 AVCMUSIC</h1>
           <span className="navbar-subtitle">DJ App</span>
         </div>
 
